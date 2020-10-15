@@ -21,11 +21,11 @@ include(SelectLibraryConfigurations)
 
 find_path(V8_INCLUDE_DIR NAMES v8.h PATH_SUFFIXES include)
 
-if(EXISTS "${_IMPORT_PREFIX}/lib/v8_monolith${CMAKE_STATIC_LIBRARY_SUFFIX}")
-  set(V8_LIBRARY_RELEASE "${_IMPORT_PREFIX}/lib/v8_monolith${CMAKE_STATIC_LIBRARY_SUFFIX}" CACHE FILEPATH "Release version of the V8 library location")
+if(EXISTS "${_IMPORT_PREFIX}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}v8_monolith${CMAKE_STATIC_LIBRARY_SUFFIX}")
+  set(V8_LIBRARY_RELEASE "${_IMPORT_PREFIX}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}v8_monolith${CMAKE_STATIC_LIBRARY_SUFFIX}" CACHE FILEPATH "Release version of the V8 library location")
 endif()
-if(EXISTS "${_IMPORT_PREFIX}/debug/lib/v8_monolith${CMAKE_STATIC_LIBRARY_SUFFIX}")
-  set(V8_LIBRARY_DEBUG   "${_IMPORT_PREFIX}/debug/lib/v8_monolith${CMAKE_STATIC_LIBRARY_SUFFIX}" CACHE FILEPATH "Debug version of the V8 library location")
+if(EXISTS "${_IMPORT_PREFIX}/debug/lib/${CMAKE_STATIC_LIBRARY_PREFIX}v8_monolith${CMAKE_STATIC_LIBRARY_SUFFIX}")
+  set(V8_LIBRARY_DEBUG   "${_IMPORT_PREFIX}/debug/lib/${CMAKE_STATIC_LIBRARY_PREFIX}v8_monolith${CMAKE_STATIC_LIBRARY_SUFFIX}" CACHE FILEPATH "Debug version of the V8 library location")
 endif()
 select_library_configurations(V8)
 
