@@ -1,13 +1,13 @@
 include(CMakeFindDependencyMacro)
-find_dependency(ICU REQUIRED COMPONENTS uc dt in)
+find_dependency(ICU REQUIRED COMPONENTS in uc dt)
 find_dependency(ZLIB REQUIRED)
 if(UNIX)
   find_package(unofficial-glib CONFIG REQUIRED)
   set(V8_IMPORTED_LINK_INTERFACE_LIBRARIES
-    "unofficial::glib::gmodule;unofficial::glib::gobject;unofficial::glib::gthread;ZLIB::ZLIB;ICU::uc;ICU::dt;ICU::in")
+    "ICU::in;ICU::uc;ICU::dt;unofficial::glib::gmodule;unofficial::glib::gobject;unofficial::glib::gthread;ZLIB::ZLIB")
 elseif(WIN32)
   set(V8_IMPORTED_LINK_INTERFACE_LIBRARIES
-    "Winmm;DbgHelp;ZLIB::ZLIB;ICU::uc;ICU::dt;ICU::in")
+    "Winmm;DbgHelp;ZLIB::ZLIB;ICU::in;ICU::uc;ICU::dt")
 endif()
 
 get_filename_component(_IMPORT_PREFIX "${CMAKE_CURRENT_LIST_FILE}" PATH)
@@ -21,11 +21,11 @@ include(SelectLibraryConfigurations)
 
 find_path(V8_INCLUDE_DIR NAMES v8.h PATH_SUFFIXES include)
 
-if(EXISTS "${_IMPORT_PREFIX}/lib/v8_monolith${CMAKE_STATIC_LIBRARY_SUFFIX}")
-  set(V8_LIBRARY_RELEASE "${_IMPORT_PREFIX}/lib/v8_monolith${CMAKE_STATIC_LIBRARY_SUFFIX}" CACHE FILEPATH "Release version of the V8 library location")
+if(EXISTS "${_IMPORT_PREFIX}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}v8_monolith${CMAKE_STATIC_LIBRARY_SUFFIX}")
+  set(V8_LIBRARY_RELEASE "${_IMPORT_PREFIX}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}v8_monolith${CMAKE_STATIC_LIBRARY_SUFFIX}" CACHE FILEPATH "Release version of the V8 library location")
 endif()
-if(EXISTS "${_IMPORT_PREFIX}/debug/lib/v8_monolith${CMAKE_STATIC_LIBRARY_SUFFIX}")
-  set(V8_LIBRARY_DEBUG   "${_IMPORT_PREFIX}/debug/lib/v8_monolith${CMAKE_STATIC_LIBRARY_SUFFIX}" CACHE FILEPATH "Debug version of the V8 library location")
+if(EXISTS "${_IMPORT_PREFIX}/debug/lib/${CMAKE_STATIC_LIBRARY_PREFIX}v8_monolith${CMAKE_STATIC_LIBRARY_SUFFIX}")
+  set(V8_LIBRARY_DEBUG   "${_IMPORT_PREFIX}/debug/lib/${CMAKE_STATIC_LIBRARY_PREFIX}v8_monolith${CMAKE_STATIC_LIBRARY_SUFFIX}" CACHE FILEPATH "Debug version of the V8 library location")
 endif()
 select_library_configurations(V8)
 
